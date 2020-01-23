@@ -12,23 +12,23 @@ class Student
   def self.all
     sql = "SELECT * FROM students"
     DB[:conn].execute(sql).map do |row|
-      self.new_from_db(row)
+    self.new_from_db(row)
   end
 
   def self.find_by_name(name)
     sql = "SELECT * FROM students WHERE name = ?"
     student_row = DB[:conn].execute(sql, name)[0]
-      self.new_from_db(student_row)
+    self.new_from_db(student_row)
   end
   
   def self.count_all_students_in_grade_9
     sql = "SELECT * FROM students WHERE grade = 9"
-      DB[:conn].execute(sql)
+    DB[:conn].execute(sql)
   end
   
   def save
     sql = <<-SQL
-      INSERT INTO students (name, grade) 
+    INSERT INTO students (name, grade) 
       VALUES (?, ?)
     SQL
 
