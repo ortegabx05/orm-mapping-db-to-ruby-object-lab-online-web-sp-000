@@ -38,7 +38,7 @@ end
   
     def self.first_x_students_in_grade_10(x)
     sql = "SELECT * FROM students WHERE grade = 10 LIMIT ?"
-    DB[:conn].execute(sql, x).map do |row|
+    DB[:conn].execute(sql, x).collect do |row|
       self.new_from_db(row)
     end.first
   end
