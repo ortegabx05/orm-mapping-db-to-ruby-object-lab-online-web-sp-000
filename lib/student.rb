@@ -42,8 +42,12 @@ end
   end
 
   def self.first_student_in_grade_10
-    student = self.first_x_students_in_grade_10(1).flatten
-    self.new_from_db(student)
+    sql = <<-SQL
+    SELECT * FROM studentsWHERE students.grade = 10 LIMIT 1
+      SQL
+    DB[:conn].execute(sql).collect do |row|
+      self.new_from_db(row)
+    end.first
   end
   
   def self.all_students_in_grade_X(x)
