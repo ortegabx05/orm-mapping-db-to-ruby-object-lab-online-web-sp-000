@@ -36,10 +36,14 @@ end
     end
   end
   
+    def self.first_x_students_in_grade_10(num)
+    sql = "SELECT * FROM students WHERE grade=10 ORDER BY students.id LIMIT ?;"
+    DB[:conn].execute(sql, num)
+  end
+
   def self.first_student_in_grade_10
-    sql = "SELECT * FROM students WHERE grade = 10 LIMIT 1"
-    first_student_row = DB[:conn].execute(sql)[0]
-    self.new_from_db(first_student_row)
+    student = self.first_x_students_in_grade_10(1).flatten
+    self.new_from_db(student)
   end
   
   def self.all_students_in_grade_X(x)
